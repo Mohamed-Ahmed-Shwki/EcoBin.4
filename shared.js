@@ -2,7 +2,7 @@
 const $=id=>document.getElementById(id);
 const PORTAL=document.body.dataset.portal;
 /* Edit these if the three portals are hosted somewhere else */
-const LINKS={user:'../ecobin-user/index.html',supplier:'../ecobin-supplier/index.html',admin:'../ecobin-admin/index.html'};
+const LINKS={user:'user.html',supplier:'supplier.html',admin:'admin.html'};
 
 const T = {
             en: {
@@ -334,9 +334,9 @@ function redeemReward(rid){sync();const rw=rewardsData.find(r=>r.id===rid);if(!r
  DB.points-=rw.points;save();sync();showToast(t('reward_redeemed'),t('reward_success',{title:rw.title[currentLang],points:userPoints.toLocaleString()}));renderAll()}
 
 /* ===== LAYOUT ===== */
-const NAVS={user:[['index.html','nav_home'],['store.html','nav_store'],['cart.html','nav_cart'],['index.html#rewards','nav_rewards'],['index.html#impact','nav_impact']],
-supplier:[['index.html','nav_home'],['index.html#products','nav_products'],['index.html#orders','nav_orders']],
-admin:[['index.html','nav_dashboard'],['index.html#bins','nav_bins'],['index.html#suppliers','nav_suppliers'],['index.html#storeadmin','nav_store']]};
+const NAVS={user:[['user.html','nav_home'],['store.html','nav_store'],['cart.html','nav_cart'],['user.html#rewards','nav_rewards'],['user.html#impact','nav_impact']],
+supplier:[['supplier.html','nav_home'],['supplier.html#products','nav_products'],['supplier.html#orders','nav_orders']],
+admin:[['admin.html','nav_dashboard'],['admin.html#bins','nav_bins'],['admin.html#suppliers','nav_suppliers'],['admin.html#storeadmin','nav_store']]};
 function nav(){const f=location.pathname.split('/').pop()||'index.html';
  $('navbar').innerHTML=`<a href="${LINKS[PORTAL]}" class="logo"><div class="logo-icon">♻</div><span>${t('brand')}</span></a>
 <ul class="nav-links">${NAVS[PORTAL].map(([h,k])=>`<li><a href="${h}" class="${h===f?'active':''}">${t(k)}${k==='nav_cart'?`<span class="nbadge">${cartN()}</span>`:''}</a></li>`).join('')}</ul>

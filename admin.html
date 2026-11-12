@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>EcoBin - Admin</title><link rel="stylesheet" href="shared.css"></head>
+<body data-portal="admin">
+<div class="load-overlay" id="loadOverlay"><div class="load-spin"></div><div class="load-txt" data-i18n="loading">Loading EcoBin...</div></div>
+<div class="toast-wrap" id="toastWrap"></div>
+<nav class="navbar" id="navbar"></nav>
+<section class="dashboard-section pt" id="dashboard">
+        <div class="section-header fade-in">
+            <div class="section-badge" data-i18n="dash_badge">Live Analytics</div>
+            <h2 data-i18n="dash_title">Platform Dashboard</h2>
+            <p data-i18n="dash_desc">Real-time monitoring of waste collection and environmental impact.</p>
+        </div>
+        <div class="dashboard-grid">
+            <div class="dash-card fade-in">
+                <div class="dash-icon green">♻</div>
+                <div class="dash-title" data-i18n="card_total">Total Waste Collected</div>
+                <div class="dash-value" id="totalWaste">12,847 <span style="font-size:0.85rem;color:var(--text-muted)">kg</span></div>
+                <div class="dash-change">▲ +23.5% <span data-i18n="this_month">this month</span></div>
+                <div class="mini-chart"><div class="mini-bar g" style="height:40%"></div><div class="mini-bar g" style="height:55%"></div><div class="mini-bar g" style="height:45%"></div><div class="mini-bar g" style="height:70%"></div><div class="mini-bar g" style="height:80%"></div><div class="mini-bar g" style="height:90%"></div><div class="mini-bar g" style="height:100%"></div></div>
+            </div>
+            <div class="dash-card fade-in">
+                <div class="dash-icon blue">👥</div>
+                <div class="dash-title" data-i18n="card_users">Active Tourists</div>
+                <div class="dash-value" id="activeUsers2">3,256</div>
+                <div class="dash-change">▲ +18.2% <span data-i18n="this_week">this week</span></div>
+                <div class="mini-chart"><div class="mini-bar b" style="height:50%"></div><div class="mini-bar b" style="height:60%"></div><div class="mini-bar b" style="height:55%"></div><div class="mini-bar b" style="height:70%"></div><div class="mini-bar b" style="height:80%"></div><div class="mini-bar b" style="height:85%"></div><div class="mini-bar b" style="height:95%"></div></div>
+            </div>
+            <div class="dash-card fade-in">
+                <div class="dash-icon orange">🪙</div>
+                <div class="dash-title" data-i18n="card_points">Green Points</div>
+                <div class="dash-value" id="greenPoints">856,420</div>
+                <div class="dash-change">▲ +31.8% <span data-i18n="this_month">this month</span></div>
+                <div class="mini-chart"><div class="mini-bar o" style="height:35%"></div><div class="mini-bar o" style="height:45%"></div><div class="mini-bar o" style="height:40%"></div><div class="mini-bar o" style="height:55%"></div><div class="mini-bar o" style="height:70%"></div><div class="mini-bar o" style="height:80%"></div><div class="mini-bar o" style="height:100%"></div></div>
+            </div>
+            <div class="dash-card fade-in">
+                <div class="dash-icon green">🌿</div>
+                <div class="dash-title" data-i18n="card_carbon">CO₂ Offset</div>
+                <div class="dash-value" id="carbonOffset">4,231 <span style="font-size:0.85rem;color:var(--text-muted)">kg</span></div>
+                <div class="dash-change">▲ +15.3% <span data-i18n="this_month">this month</span></div>
+                <div class="mini-chart"><div class="mini-bar g" style="height:45%"></div><div class="mini-bar g" style="height:55%"></div><div class="mini-bar g" style="height:50%"></div><div class="mini-bar g" style="height:65%"></div><div class="mini-bar g" style="height:75%"></div><div class="mini-bar g" style="height:80%"></div><div class="mini-bar g" style="height:95%"></div></div>
+            </div>
+            <div class="dash-card fade-in">
+                <div class="dash-icon red">🗑</div>
+                <div class="dash-title" data-i18n="card_bins">Smart Bins Active</div>
+                <div class="dash-value small" id="activeBins">48 / 52</div>
+                <div class="dash-change">✓ 92.3% <span data-i18n="uptime">uptime</span></div>
+                <div class="mini-chart" style="justify-content:center;gap:8px;height:40px;align-items:center;">
+                    <div style="width:40px;height:40px;border-radius:50%;background:conic-gradient(var(--primary-green) 0% 80%, #E5E7EB 80% 100%);display:flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:700;">80%</div>
+                </div>
+            </div>
+            <div class="dash-card fade-in">
+                <div class="dash-icon blue">🤝</div>
+                <div class="dash-title" data-i18n="card_suppliers">Active Suppliers</div>
+                <div class="dash-value" id="activeSuppliers">12</div>
+                <div class="dash-change">▲ +2 <span data-i18n="new_this_week">new this week</span></div>
+                <div class="mini-chart"><div class="mini-bar b" style="height:60%"></div><div class="mini-bar b" style="height:55%"></div><div class="mini-bar b" style="height:70%"></div></div>
+            </div>
+        </div>
+    </section>
+<section class="bins-section" id="bins">
+        <div class="section-header fade-in">
+            <div class="section-badge" data-i18n="bins_badge">IoT Connected</div>
+            <h2 data-i18n="bins_title">Smart Bin Network</h2>
+            <p data-i18n="bins_desc">AI-powered waste bins with real-time fill monitoring and automatic sorting.</p>
+        </div>
+        <div class="bins-grid" id="binsGrid"></div>
+    </section>
+<section class="split-section" id="suppliers">
+        <div class="section-header fade-in">
+            <div class="section-badge" data-i18n="split_badge">Supply Chain</div>
+            <h2 data-i18n="split_title">Suppliers & Orders</h2>
+            <p data-i18n="split_desc">Connect with verified recycling suppliers and manage orders.</p>
+        </div>
+        <div class="split-wrap">
+            <div class="panel fade-in">
+                <div class="panel-head sup">
+                    <div class="panel-title">🚚 <span data-i18n="supplier_title">Recycling Suppliers</span></div>
+                    <span class="panel-badge" id="supplierCount">12 Active</span>
+                </div>
+                <div class="panel-body">
+                    <table class="data-t">
+                        <thead><tr><th data-i18n="th_supplier">Supplier</th><th data-i18n="th_material">Material</th><th data-i18n="th_qty">Available</th><th data-i18n="th_price">Price</th><th data-i18n="th_action">Action</th></tr></thead>
+                        <tbody id="suppliersTable"></tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="panel fade-in">
+                <div class="panel-head ord">
+                    <div class="panel-title">📋 <span data-i18n="orders_title">My Orders</span></div>
+                    <span class="panel-badge" id="orderCount">5 Orders</span>
+                </div>
+                <div class="panel-body" id="ordersList"></div>
+            </div>
+        </div>
+    </section>
+<section class="split-section" id="storeadmin"><div class="section-header"><h2 data-i18n="mod_title"></h2></div><div class="split-wrap">
+<div class="panel"><div class="panel-head sup"><div class="panel-title">🛍 <span data-i18n="nav_products"></span></div><span class="panel-badge" id="pc"></span></div><div class="panel-body"><table class="data-t"><tbody id="modRows"></tbody></table></div></div>
+<div class="panel"><div class="panel-head ord"><div class="panel-title">📋 <span data-i18n="all_orders"></span></div><span class="panel-badge" id="oc"></span></div><div class="panel-body" id="allOrders"></div></div></div></section>
+<div id="foot"></div>
+<script src="shared.js"></script>
+<script>
+
+function page(){$('pc').textContent=DB.products.length;
+ $('oc').textContent=DB.orders.length+' · '+money(DB.orders.filter(o=>o.status!=='cancelled').reduce((a,o)=>a+o.total,0));
+ $('modRows').innerHTML=DB.products.map(p=>`<tr><td>${p.icon} ${pn(p)}<div class="sup-t">${sup(p.sid).name[currentLang]} · ${money(p.price)}</div></td><td><span class="qty-b ${stCls(p.st)}">${t(p.st)}</span></td>
+ <td><button class="act-btn ${p.st==='live'?'no':'ord'}" onclick="setProdState(${p.id},'${p.st==='live'?'blocked':'live'}')">${t(p.st==='live'?'block':p.st==='review'?'approve':'unblock')}</button></td></tr>`).join('');
+ $('allOrders').innerHTML=DB.orders.map(o=>orderCard(o)).join('')||`<p class="empty">${t('no_orders')}</p>`}
+
+</script>
+</body></html>

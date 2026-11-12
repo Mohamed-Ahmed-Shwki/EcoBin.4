@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>EcoBin - Supplier</title><link rel="stylesheet" href="shared.css"></head>
+<body data-portal="supplier">
+<div class="load-overlay" id="loadOverlay"><div class="load-spin"></div><div class="load-txt" data-i18n="loading">Loading EcoBin...</div></div>
+<div class="toast-wrap" id="toastWrap"></div>
+<nav class="navbar" id="navbar"></nav>
+<section class="pt dashboard-section"><div class="section-header"><div class="section-badge" data-i18n="portal_supplier"></div><h2 data-i18n="sup_title"></h2><p data-i18n="sup_desc"></p>
+<p style="margin-top:12px"><label><span data-i18n="sup_as"></span> <select id="who" class="sel" onchange="setWho(this.value)"></select></label></p></div><div class="dashboard-grid" id="kpi"></div></section>
+<section class="split-section" id="products"><div class="split-wrap">
+<div class="panel"><div class="panel-head sup"><div class="panel-title">🛍 <span data-i18n="nav_products"></span></div></div><div class="panel-body">
+<table class="data-t"><thead><tr><th data-i18n="th_product"></th><th data-i18n="th_price"></th><th data-i18n="th_qty"></th><th data-i18n="th_status"></th></tr></thead><tbody id="prodRows"></tbody></table>
+<h4 style="margin-top:20px" data-i18n="add_prod"></h4><div class="frm"><input id="fn" placeholder="Name"><input id="fa" placeholder="الاسم (AR)"><select id="fm"><option>Plastic</option><option>Glass</option><option>Metal</option></select>
+<input id="fpr" type="number" step="0.1" min="0" placeholder="$"><input id="fs" type="number" min="0" placeholder="Stock"><input id="fi" placeholder="♻️" maxlength="2"><button class="act-btn ord" onclick="addProduct()" data-i18n="submit_review"></button></div></div></div>
+<div class="panel" id="orders"><div class="panel-head ord"><div class="panel-title">📋 <span data-i18n="nav_orders"></span></div></div><div class="panel-body" id="supOrders"></div></div></div></section>
+<div id="foot"></div>
+<script src="shared.js"></script>
+<script>
+
+let who=1;try{who=+localStorage.getItem('ecobin_sup')||1}catch(e){}
+function setWho(v){who=+v;try{localStorage.setItem('ecobin_sup',v)}catch(e){}renderAll()}
+const NEXT={pending:['processing','accept'],processing:['shipped','ship'],shipped:['completed','complete']};
+function ACT(o){const n=NEXT[o.status];return n?`<div class="acts"><button class="act-btn ord" onclick="setStatus('${o.id}','${n[0]}')">${t(n[1])}</button>${o.status==='pending'?`<button class="act-btn no" onclick="setStatus('${o.id}','cancelled')">${t('decline')}</button>`:''}</div>`:''}
+function addProduct(){const n=$('fn').value.trim(),pr=parseFloat($('fpr').value),s=parseInt($('fs').value);
+ if(!n||!(pr>=0)||!(s>=0))return showToast(t('fill_all'),'');sync();
+ DB.products.push({id:Date.now()%1e9,sid:who,name:{en:n,ar:$('fa').value.trim()||n},material:$('fm').value,price:pr,stock:s,icon:$('fi').value||'♻️',color:'#D1FAE5',st:'review'});
+ save();['fn','fa','fpr','fs','fi'].forEach(i=>$(i).value='');showToast(t('product_added'),n);renderAll()}
+function page(){const Ps=DB.products.filter(p=>p.sid===who),O=DB.orders.filter(o=>o.sid===who);
+ $('who').innerHTML=suppliersData.map(s=>`<option value="${s.id}" ${s.id===who?'selected':''}>${s.name[currentLang]}</option>`).join('');
+ const rev=O.filter(o=>o.status==='completed').reduce((a,o)=>a+o.total,0);
+ $('kpi').innerHTML=[['🛍',t('products_n'),Ps.length],['⏳',t('pending_n'),O.filter(o=>o.status==='pending').length],['💰',t('revenue'),money(rev)]].map(([i,l,v])=>`<div class="dash-card"><div class="dash-icon green">${i}</div><div class="dash-title">${l}</div><div class="dash-value">${v}</div></div>`).join('');
+ $('prodRows').innerHTML=Ps.map(p=>`<tr><td>${p.icon} ${pn(p)}</td><td><input class="num" style="width:75px" type="number" step="0.1" min="0" value="${p.price}" onchange="setProd(${p.id},'price',this.value)"></td>
+ <td><input class="num" style="width:75px" type="number" min="0" value="${p.stock}" onchange="setProd(${p.id},'stock',this.value)"></td><td><span class="qty-b ${stCls(p.st)}">${t(p.st)}</span></td></tr>`).join('');
+ $('supOrders').innerHTML=O.map(o=>orderCard(o,ACT(o))).join('')||`<p class="empty">${t('no_orders')}</p>`}
+
+</script>
+</body></html>

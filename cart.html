@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>EcoBin - Cart</title><link rel="stylesheet" href="assets/shared.css"></head>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>EcoBin - Cart</title><link rel="stylesheet" href="shared.css"></head>
 <body data-portal="user">
 <div class="load-overlay" id="loadOverlay"><div class="load-spin"></div><div class="load-txt" data-i18n="loading">Loading EcoBin...</div></div>
 <div class="toast-wrap" id="toastWrap"></div>
@@ -8,7 +8,7 @@
 <div class="panel"><div class="panel-head ord"><div class="panel-title">🛒 <span data-i18n="nav_cart"></span></div></div><div class="panel-body" id="cartBox"></div></div>
 <div class="panel"><div class="panel-head sup"><div class="panel-title">📋 <span data-i18n="my_store_orders"></span></div><span class="panel-badge" id="myCount"></span></div><div class="panel-body" id="myOrders"></div></div></div></section>
 <div id="foot"></div>
-<script src="assets/shared.js"></script>
+<script src="shared.js"></script>
 <script>
 
 function page(){const L=DB.cart.map(c=>({c,p:DB.products.find(x=>x.id===c.pid)})).filter(x=>x.p);
