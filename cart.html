@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>EcoBin - Cart</title><link rel="stylesheet" href="assets/shared.css"></head>
+<body data-portal="user">
+<div class="load-overlay" id="loadOverlay"><div class="load-spin"></div><div class="load-txt" data-i18n="loading">Loading EcoBin...</div></div>
+<div class="toast-wrap" id="toastWrap"></div>
+<nav class="navbar" id="navbar"></nav>
+<section class="pt split-section"><div class="section-header"><h2 data-i18n="cart_title"></h2><p data-i18n="cart_desc"></p></div><div class="split-wrap">
+<div class="panel"><div class="panel-head ord"><div class="panel-title">🛒 <span data-i18n="nav_cart"></span></div></div><div class="panel-body" id="cartBox"></div></div>
+<div class="panel"><div class="panel-head sup"><div class="panel-title">📋 <span data-i18n="my_store_orders"></span></div><span class="panel-badge" id="myCount"></span></div><div class="panel-body" id="myOrders"></div></div></div></section>
+<div id="foot"></div>
+<script src="assets/shared.js"></script>
+<script>
+
+function page(){const L=DB.cart.map(c=>({c,p:DB.products.find(x=>x.id===c.pid)})).filter(x=>x.p);
+ const sub=L.reduce((a,x)=>a+x.p.price*x.c.qty,0),maxd=Math.min(Math.floor(sub),Math.floor(DB.points/100)),chk=$('usePts')&&$('usePts').checked;
+ $('cartBox').innerHTML=L.length?L.map(({c,p})=>`<div class="cartline"><span class="ci">${p.icon}</span><div class="cn">${pn(p)}<div class="sup-t">${sup(p.sid).name[currentLang]} · ${money(p.price)}</div></div>
+ <div class="qtyc"><button onclick="setQty(${p.id},-1)">−</button>${c.qty}<button onclick="setQty(${p.id},1)">+</button></div><button class="act-btn no" onclick="setQty(${p.id},-99)">✕</button></div>`).join('')+
+ `<div class="sum"><div><span>${t('subtotal')}</span><span>${money(sub)}</span></div><label><input type="checkbox" id="usePts" ${chk?'checked':''} ${maxd?'':'disabled'} onchange="renderAll()"> ${t('use_points',{n:maxd*100,d:maxd})}</label>
+ <div class="tot"><span>${t('total')}</span><span>${money(sub-(chk?maxd:0))}</span></div></div><button class="act-btn ord" style="width:100%;margin-top:14px;padding:12px" onclick="checkout()">${t('checkout')}</button>`
+ :`<p class="empty">${t('cart_empty')} <a href="store.html">${t('nav_store')}</a></p>`;
+ $('myCount').textContent=DB.orders.length;$('myOrders').innerHTML=DB.orders.map(o=>orderCard(o)).join('')||`<p class="empty">${t('no_orders')}</p>`}
+
+</script>
+</body></html>

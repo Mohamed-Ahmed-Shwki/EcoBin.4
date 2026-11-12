@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>EcoBin - Tourist</title><link rel="stylesheet" href="assets/shared.css"></head>
+<body data-portal="user">
+<div class="load-overlay" id="loadOverlay"><div class="load-spin"></div><div class="load-txt" data-i18n="loading">Loading EcoBin...</div></div>
+<div class="toast-wrap" id="toastWrap"></div>
+<nav class="navbar" id="navbar"></nav>
+<section class="hero" id="hero">
+        <div class="bin-image-wrap">
+            <img src="ecobin-diagram.png" alt="EcoBin Smart Design Diagram" class="bin-img-show">
+        </div>
+        <div class="hero-content">
+            <div class="hero-badge" data-i18n="hero_badge">Smart Eco-Tourism Initiative</div>
+            <h1 data-i18n="hero_title">Recycle Today,<br><span>Travel Greener</span></h1>
+            <p data-i18n="hero_desc">Join our smart waste management ecosystem. Scan the QR code on any EcoBin, recycle your waste, earn Green Points, and redeem exclusive eco-rewards.</p>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <span class="hero-stat-number" id="totalRecycled">12,847</span>
+                    <span class="hero-stat-label" data-i18n="stat_recycled">kg Recycled</span>
+                </div>
+                <div class="hero-stat">
+                    <span class="hero-stat-number" id="totalUsers">3,256</span>
+                    <span class="hero-stat-label" data-i18n="stat_users">Active Users</span>
+                </div>
+                <div class="hero-stat">
+                    <span class="hero-stat-number" id="totalPoints">856K</span>
+                    <span class="hero-stat-label" data-i18n="stat_points">Points Earned</span>
+                </div>
+            </div>
+            <div class="hero-cta">
+                <a href="store.html" class="btn btn-primary" data-i18n="btn_shop">Shop Recycled</a>
+                <a href="#bins" class="btn btn-secondary" data-i18n="btn_bins">Find Bins</a>
+            </div>
+        </div>
+    </section>
+<section class="bins-section" id="bins">
+        <div class="section-header fade-in">
+            <div class="section-badge" data-i18n="bins_badge">IoT Connected</div>
+            <h2 data-i18n="bins_title">Smart Bin Network</h2>
+            <p data-i18n="bins_desc">AI-powered waste bins with real-time fill monitoring and automatic sorting.</p>
+        </div>
+        <div class="bins-grid" id="binsGrid"></div>
+    </section>
+<section class="rewards-section" id="rewards">
+        <div class="section-header fade-in">
+            <div class="section-badge" data-i18n="rewards_badge">Redeem Now</div>
+            <h2 data-i18n="rewards_title">Green Points Rewards</h2>
+            <p data-i18n="rewards_desc">Turn your recycling efforts into amazing rewards. You have <strong style="color:var(--dark-green)">1,250 Green Points</strong> available.</p>
+        </div>
+        <div class="rewards-grid" id="rewardsGrid"></div>
+    </section>
+<section class="impact-section" id="impact">
+        <div class="section-header fade-in">
+            <div class="section-badge" data-i18n="impact_badge">Your Impact</div>
+            <h2 data-i18n="impact_title">Environmental Impact</h2>
+            <p data-i18n="impact_desc">See how your recycling makes a real difference.</p>
+        </div>
+        <div class="imp-wrap">
+            <div class="imp-grid">
+                <div class="imp-card pl fade-in">
+                    <div class="imp-icon">♻</div>
+                    <div class="imp-val" id="impactPlastic">4,230</div>
+                    <div class="imp-unit">kg</div>
+                    <div class="imp-label" data-i18n="impact_plastic">Plastic Recycled</div>
+                </div>
+                <div class="imp-card gl fade-in">
+                    <div class="imp-icon">🍾</div>
+                    <div class="imp-val" id="impactGlass">2,156</div>
+                    <div class="imp-unit">kg</div>
+                    <div class="imp-label" data-i18n="impact_glass">Glass Recycled</div>
+                </div>
+                <div class="imp-card mt fade-in">
+                    <div class="imp-icon">🔩</div>
+                    <div class="imp-val" id="impactMetal">1,847</div>
+                    <div class="imp-unit">kg</div>
+                    <div class="imp-label" data-i18n="impact_metal">Metal Recycled</div>
+                </div>
+                <div class="imp-card en fade-in">
+                    <div class="imp-icon">⚡</div>
+                    <div class="imp-val" id="impactEnergy">18,420</div>
+                    <div class="imp-unit">kWh</div>
+                    <div class="imp-label" data-i18n="impact_energy">Energy Saved</div>
+                </div>
+            </div>
+            <div class="imp-chart fade-in">
+                <h3 data-i18n="impact_chart_title">Weekly Recycling Activity</h3>
+                <div class="chart-grid" id="impactChart"></div>
+            </div>
+        </div>
+    </section>
+<div id="foot"></div>
+<script src="assets/shared.js"></script>
+<script>
+
+</script>
+</body></html>

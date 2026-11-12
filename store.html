@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>EcoBin - Store</title><link rel="stylesheet" href="assets/shared.css"></head>
+<body data-portal="user">
+<div class="load-overlay" id="loadOverlay"><div class="load-spin"></div><div class="load-txt" data-i18n="loading">Loading EcoBin...</div></div>
+<div class="toast-wrap" id="toastWrap"></div>
+<nav class="navbar" id="navbar"></nav>
+<section class="pt dashboard-section"><div class="section-header"><div class="section-badge" data-i18n="store_badge"></div><h2 data-i18n="store_title"></h2><p data-i18n="store_desc"></p></div><div class="wrap"><div class="toolbar"><input id="q" oninput="renderAll()"><span id="chips"></span></div>
+<div class="rewards-grid" id="grid"></div></div></section>
+<div id="foot"></div>
+<script src="assets/shared.js"></script>
+<script>
+
+let mat='all';
+function page(){$('q').placeholder=t('search');
+ $('chips').innerHTML=['all','Plastic','Glass','Metal'].map(m=>`<button class="chip ${m===mat?'on':''}" onclick="mat='${m}';renderAll()">${t(m.toLowerCase())}</button>`).join(' ');
+ const q=$('q').value.toLowerCase();
+ $('grid').innerHTML=DB.products.filter(p=>p.st==='live'&&(mat==='all'||p.material===mat)&&pn(p).toLowerCase().includes(q)).map(p=>`<div class="rew-card"><div class="rew-img" style="background:linear-gradient(135deg,${p.color},white)">${p.icon}</div>
+ <div class="rew-body"><div class="rew-title">${pn(p)}</div><div class="rew-desc">${t(p.material.toLowerCase())} · ${sup(p.sid).name[currentLang]}</div>
+ <div class="rew-pts"><span class="pts-tag">${money(p.price)}</span><button class="rew-btn" ${p.stock<1?'disabled':''} onclick="addToCart(${p.id})">${p.stock<1?t('sold_out'):'🛒 '+t('add_cart')}</button></div>
+ <div class="stk">${p.stock} ${t('in_stock')}</div></div></div>`).join('')||`<p class="empty">${t('no_products')}</p>`}
+
+</script>
+</body></html>
